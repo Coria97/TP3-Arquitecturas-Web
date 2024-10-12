@@ -20,7 +20,7 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
-    @PostMapping()
+    @PostMapping(value="", produces = "application/json")
     public Student newStudent(@RequestBody Student student) {
         return studentRepository.save(student);
     }

@@ -2,6 +2,9 @@ package com.tp3arquitecturasweb.springbootapp.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 @Entity
 @Table(name="EstudianteCarrera")
 public class StudentCareer {
