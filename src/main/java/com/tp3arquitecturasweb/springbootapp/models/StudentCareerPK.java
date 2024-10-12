@@ -1,17 +1,21 @@
 package com.tp3arquitecturasweb.springbootapp.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 @Embeddable
+@Getter @Setter
 public class StudentCareerPK implements Serializable {
-    private Integer idStudent;
+    private Long idStudent;
 
-    private Integer idCareer;
+    private Long idCareer;
 
     public StudentCareerPK() { }
 
-    public StudentCareerPK(Integer idStudent, Integer idCareer) {
+    public StudentCareerPK(Long idStudent, Long idCareer) {
         this.idStudent = idStudent;
         this.idCareer = idCareer;
     }

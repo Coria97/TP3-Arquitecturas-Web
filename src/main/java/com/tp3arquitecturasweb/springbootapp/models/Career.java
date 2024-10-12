@@ -1,17 +1,20 @@
 package com.tp3arquitecturasweb.springbootapp.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name="Carrera")
+@Getter @Setter
 public class Career {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_carrera")
-    private Integer idCareer;
+    private Long idCareer;
 
     @Column(name = "nombre" ,unique = true)
     private String name;
@@ -31,41 +34,5 @@ public class Career {
         this.name = name;
         this.zone = zone;
         this.duration = duration;
-    }
-
-    public Integer getId() {
-        return this.idCareer;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getZone() {
-        return zone;
-    }
-
-    public void setZone(String zone) {
-        this.zone = zone;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public Set<StudentCareer> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<StudentCareer> students) {
-        this.students = students;
     }
 }

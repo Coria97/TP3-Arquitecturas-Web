@@ -1,12 +1,15 @@
 package com.tp3arquitecturasweb.springbootapp.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
 @Table(name="EstudianteCarrera")
+@Getter @Setter
 public class StudentCareer {
     @EmbeddedId
     private StudentCareerPK id;
@@ -30,27 +33,11 @@ public class StudentCareer {
     public StudentCareer() {}
 
     public StudentCareer(Student student, Career career) {
-        this.id = new StudentCareerPK(student.getId(), career.getId());
+        this.id = new StudentCareerPK(student.getIdStudent(), career.getIdCareer());
         this.student = student;
         this.career = career;
         this.inscriptionDate = LocalDate.now();
         this.graduationDate = null;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public Career getCareer() {
-        return career;
-    }
-
-    public void setCareer(Career career) {
-        this.career = career;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 
     public boolean isGraduated() {

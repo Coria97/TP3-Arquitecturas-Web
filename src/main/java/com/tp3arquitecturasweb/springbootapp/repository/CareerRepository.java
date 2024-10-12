@@ -1,9 +1,9 @@
 package com.tp3arquitecturasweb.springbootapp.repository;
 
-import com.tp3arquitecturasweb.springbootapp.models.Student;
+import com.tp3arquitecturasweb.springbootapp.models.Career;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student, Long> {
+public interface CareerRepository extends JpaRepository<Career, Long> {
 }
