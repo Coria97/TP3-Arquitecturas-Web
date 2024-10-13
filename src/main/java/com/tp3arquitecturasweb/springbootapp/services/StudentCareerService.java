@@ -23,26 +23,30 @@ public class StudentCareerService {
     @Autowired
     private CareerRepository careerRepository;
 
-    public ResponseEntity<?> registerStudent(Long studentId, Long careerId) {
+    public String registerStudent(Long studentId, Long careerId) {
         if (!studentRepository.existsById(studentId)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\":\"The student does not exist.\"}");
+            throw new IllegalArgumentException("The student does not exist.");
         }
 
         if (!careerRepository.existsById(careerId)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{\"message\":\"The career does not exist.\"}");
+            throw new IllegalArgumentException("The career does not exist.");
         }
 
         StudentCareerPK pk = new StudentCareerPK(studentId, careerId);
         if (studentCareerRepository.existsById(pk)) {
-            return ResponseEntity.status(HttpStatus.OK).body("{\"message\":\"The student is already registered.\"}");
+            return "The student is already registered.";
         }
 
         Student student = studentRepository.getReferenceById(studentId);
         Career career = careerRepository.getReferenceById(careerId);
 
-        StudentCareer studentCareer = new StudentCareer(student, career);
-        studentCareerRepository.save(studentCareer);
-
-        return ResponseEntity.status(HttpStatus.OK).body("{\"message\":\"The student registered successfully.\"}");
+        try {
+            StudentCareer studentCareer = new StudentCareer(student, career);
+            studentCareerRepository.save(studentCareer);
+            return "The student registered successfully.";
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to register the student.");
+        }
     }
+
 }

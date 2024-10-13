@@ -1,5 +1,7 @@
 package com.tp3arquitecturasweb.springbootapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,11 +19,13 @@ public class StudentCareer {
     @ManyToOne
     @MapsId("idCareer")
     @JoinColumn(name = "id_carrera")
+    @JsonIgnore
     private Career career;
 
     @ManyToOne
     @MapsId("idStudent")
     @JoinColumn(name = "id_estudiante")
+    @JsonIgnore
     private Student student;
 
     @Column(name = "fecha_inscripcion")
@@ -47,5 +51,10 @@ public class StudentCareer {
     public Period getAntiquity() {
         LocalDate now = LocalDate.now();
         return Period.between(inscriptionDate, now);
+    }
+
+    @JsonProperty("careerName")
+    public String getCareerName() {
+        return career != null ? career.getName() : null;
     }
 }

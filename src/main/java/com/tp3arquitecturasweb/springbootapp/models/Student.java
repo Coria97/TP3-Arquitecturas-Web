@@ -1,14 +1,17 @@
 package com.tp3arquitecturasweb.springbootapp.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -21,6 +24,7 @@ public class Student {
     private Long idStudent;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<StudentCareer> career = new HashSet<>();
 
     @Column(name = "ciudad_residencia")
@@ -59,17 +63,10 @@ public class Student {
         this.studentNumber = studentNumber;
     }
 
-    @Override
-    public String toString() {
-        return "Estudiante{" +
-                "ciudad='" + city + '\'' +
-                ", nombre='" + firstName + '\'' +
-                ", apellido='" + lastName + '\'' +
-                ", edad=" + age +
-                ", genero=" + gender +
-                ", nro_documento=" + documentNumber +
-                ", nro_libreta_universitaria=" + studentNumber +
-                ", id_estudiante=" + idStudent +
-                '}';
+    @JsonProperty("careers")
+    public List<String> getCareerNames() {
+        return career.stream()
+                .map(StudentCareer::getCareerName)
+                .collect(Collectors.toList());
     }
 }
