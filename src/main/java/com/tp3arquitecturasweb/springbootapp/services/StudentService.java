@@ -35,4 +35,18 @@ public class StudentService {
             throw new RuntimeException("Error retrieving the list of students");
         }
     }
+
+    public Student findStudentByStudentNumber(Integer studentNumber) {
+        return studentRepository.findByStudentNumber(studentNumber)
+                .orElseThrow(() -> new RuntimeException("Student not found with student number: " + studentNumber));
+    }
+
+    public List<Student> getAllStudentsByGender(char gender) {
+        try{
+            return studentRepository.findAllByGender(gender);
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Error retrieving the list of students");
+        }
+    }
 }

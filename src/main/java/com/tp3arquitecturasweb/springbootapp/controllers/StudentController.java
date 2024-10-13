@@ -47,4 +47,25 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/number/{studentNumber}")
+    public ResponseEntity<?> getStudentByStudentNumber(@PathVariable Integer studentNumber) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.findStudentByStudentNumber(studentNumber));
+        } catch (RuntimeException e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        }
+    }
+
+    @GetMapping("/gender/{gender}")
+    public ResponseEntity<?> getStudentByGender(@PathVariable char gender) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllStudentsByGender(gender));
+        } catch (RuntimeException e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }
 }
