@@ -3,8 +3,6 @@ package com.tp3arquitecturasweb.springbootapp.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -46,9 +44,6 @@ public class Student {
     private Integer documentNumber;
 
     @Column(name = "numero_libreta", unique = true)
-    //to do: ver como hacer para que responda con 400 y estos mensajes.
-    //@NotBlank(message = "studentNumber is mandatory")
-    //@NotNull(message = "studentNumber is mandatory")
     private Integer studentNumber;
 
     public Student() { }
