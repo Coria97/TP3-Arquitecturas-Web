@@ -1,6 +1,7 @@
 package com.tp3arquitecturasweb.springbootapp.controllers;
 
 import com.tp3arquitecturasweb.springbootapp.dto.CareerWithEnrolledStudentsDTO;
+import com.tp3arquitecturasweb.springbootapp.dto.ReportDTO;
 import com.tp3arquitecturasweb.springbootapp.repository.CareerRepository;
 import com.tp3arquitecturasweb.springbootapp.services.CareerService;
 import com.tp3arquitecturasweb.springbootapp.services.StudentCareerService;
@@ -46,6 +47,18 @@ public class CareerController {
         try {
             List<CareerWithEnrolledStudentsDTO> careers = careerService.getCareerWithEnrolledStudents();
             return ResponseEntity.status(HttpStatus.OK).body(careers);
+        } catch (RuntimeException e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    @GetMapping("/reports")
+    public ResponseEntity<?> getReports(){
+        try{
+            List<ReportDTO> reports = careerService.getReports();
+            return ResponseEntity.status(HttpStatus.OK).body(reports);
         } catch (RuntimeException e) {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("message", e.getMessage());
