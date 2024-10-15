@@ -59,10 +59,21 @@ public class StudentController {
     }
 
     @GetMapping("/gender/{gender}")
-    public ResponseEntity<?> getStudentByGender(@PathVariable char gender) {
+    public ResponseEntity<?> getAllStudentsByGender(@PathVariable char gender) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllStudentsByGender(gender));
         } catch (RuntimeException e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+        }
+    }
+
+    @GetMapping("/career/{id_career}")
+    public ResponseEntity<?> getAllStudentsByCareerAndCity(@RequestParam String city, @PathVariable Long id_career) {
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(studentService.getAllStudentsByCareerAndCity(city, id_career));
+        }catch (RuntimeException e) {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);

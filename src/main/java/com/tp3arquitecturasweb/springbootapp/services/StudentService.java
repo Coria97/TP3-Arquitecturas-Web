@@ -49,4 +49,12 @@ public class StudentService {
             throw new RuntimeException("Error retrieving the list of students");
         }
     }
+
+    public List<Student> getAllStudentsByCareerAndCity(String city, Long id_career) {
+        try {
+            return studentRepository.findAllByCareerAndCity(city, id_career);
+        }catch (Exception e) {
+            throw new RuntimeException("Error retrieving the list of students");
+        }
+    }
 }

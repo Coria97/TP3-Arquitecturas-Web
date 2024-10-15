@@ -17,4 +17,13 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query("SELECT s FROM Student s WHERE s.gender = :gender")
     List<Student> findAllByGender(char gender);
+
+    @Query("SELECT e " +
+            "FROM Student e " +
+            "WHERE e.city = :city " +
+            "AND e.idStudent IN (SELECT ec.student.idStudent " +
+            "             FROM StudentCareer ec " +
+            "             JOIN ec.career c " +
+            "             WHERE c.idCareer = :id_career)")
+    List<Student> findAllByCareerAndCity(String city, Long id_career);
 }
